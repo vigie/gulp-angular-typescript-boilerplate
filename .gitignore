@@ -1,0 +1,9 @@
+node_modules/
+bower_components/
+.sass-cache/
+.tmp/
+dist/
+typings/
+tsd.json
+.idea/
+*.iml
