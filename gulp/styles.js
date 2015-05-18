@@ -10,7 +10,12 @@ var wiredep = require('wiredep').stream;
 module.exports = function (options) {
 
    // Task: styles ----------------------------------------------------------------------
-   //
+   // * Creates master scss files - index and vendor - from the dependencies
+   // * Compiles sass down to CSS
+   // * Adds inline source maps css ---> scss
+   // * Auto-prefixes css rules as necessary
+   // * Writes the output css to the staging directory
+   // * Reloads the app.
    gulp.task('styles', function () {
       var sassOptions = {
          style: 'expanded'
@@ -40,11 +45,11 @@ module.exports = function (options) {
             options.src + '/app/index.scss',
             options.src + '/app/vendor.scss'
       ])
-      // Inject dependent scss files to index.scss
+      // Inject constituent scss files into master index.scss
       .pipe(indexFilter)
       .pipe($.inject(injectFiles, injectOptions))
       .pipe(indexFilter.restore())
-      // Inject dependent scss files to vendor.scss
+      // Inject any bower dependency style files to vendor.scss
       .pipe(vendorFilter)
       .pipe(wiredep(options.wiredep))
       .pipe(vendorFilter.restore())
@@ -54,7 +59,7 @@ module.exports = function (options) {
       // Add the css --> scss source maps to bottom of css files
       .pipe($.sourcemaps.init({ loadMaps: true }))
       // Add browser vendor specific css rule prefixes automatically.
-      // TODO mcritch: Configure to support our target browsers.
+      // Supported browsers are read from file browserlist
       .pipe($.autoprefixer()).on('error', options.errorHandler('Autoprefixer'))
       .pipe($.sourcemaps.write())
       .pipe(cssFilter.restore())

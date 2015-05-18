@@ -1,0 +1,6 @@
+# The supported target browsers for this app.
+# Config file used by autoprefixer when auto prefixing css rules.
+# See https://github.com/postcss/autoprefixer and https://github.com/ai/browserslist
+last 2 Chrome versions
+last 2 Firefox versions
+Explorer >= 10

@@ -56,9 +56,16 @@ module.exports = function (options) {
       });
    }
 
+   // Task test -------------------------------------------------------------------------
+   // Deps: scripts
+   // Run unit tests once
    gulp.task('test', ['scripts'], function (done) {
       runTests(true, done);
    });
+
+   //Task test:auto ---------------------------------------------------------------------
+   // Deps: watch
+   // Run unit tests continually any time a watch change is triggered.
    gulp.task('test:auto', ['watch'], function (done) {
       runTests(false, done);
    });

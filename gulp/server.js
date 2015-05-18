@@ -40,10 +40,17 @@ module.exports = function (options) {
       selector: '[ng-app]'// Only needed for angular apps
    }));
 
+   // Task: serve------------------------------------------------------------------------
+   // Deps: watch
+   // Serves the app from the default location which is the staging directory.
    gulp.task('serve', ['watch'], function () {
       browserSyncInit([options.tmp + '/serve', options.src]);
    });
 
+   // Task: serve:dist-------------------------------------------------------------------
+   // Deps: build
+   // Serves the optimized version of the app from the distribution folder.
+   // Note there is no watch on these files
    gulp.task('serve:dist', ['build'], function () {
       browserSyncInit(options.dist);
    });
