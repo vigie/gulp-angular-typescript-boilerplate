@@ -17,14 +17,10 @@
 
 var httpProxy = require('http-proxy');
 var chalk = require('chalk');
-
-/*
- * Location of your backend server
- */
-var proxyTarget = 'http://server/context/';
+var proxyConfig = require('../proxy.config');
 
 var proxy = httpProxy.createProxyServer({
-   target: proxyTarget
+   target: proxyConfig.proxyTarget
 });
 
 proxy.on('error', function (error, req, res) {
@@ -55,13 +51,5 @@ function proxyMiddleware(req, res, next) {
    }
 }
 
-/*
- * This is where you activate or not your proxy.
- *
- * The first line activate if and the second one ignored it
- */
+module.exports = proxyMiddleware;
 
-//module.exports = [proxyMiddleware];
-module.exports = function () {
-   return [];
-};
