@@ -3,22 +3,24 @@
 var gulp = require('gulp');
 var wrench = require('wrench');
 var minimist = require('minimist');
+var optional = require('optional');
 var Config = require('./gulpfile.config');
+var _ = require('lodash');
 
 var config = new Config();
 
 // The available command line options
 var definedOptions = {
    string: 'env',
-   boolean: 'useProxy',
-   default: {
-      env: 'production',
-      useProxy: false
-   }
+   boolean: 'useProxy'
 };
 
-// The runtime command line options.
-var options = minimist(process.argv.slice(2), definedOptions);
+// Runtime options coming from optional user's local options file
+var options = optional('./gulpfile.options');
+// Any runtime command line options.
+var commandLineOptions = minimist(process.argv.slice(2), definedOptions);
+// Allow command line to take precedence over options file.
+options = _.extend({}, options, commandLineOptions);
 
 // Requires all modules found under the gulp folder and executes those modules with
 // the options object as input.
