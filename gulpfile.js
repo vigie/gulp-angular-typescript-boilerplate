@@ -33,7 +33,9 @@ wrench.readdirSyncRecursive('./gulp').filter(function (file) {
    require('./gulp/' + file)(options);
 });
 
-// Defines the default gulp task.
+// Task: default ------------------------------------------------------------------------
+// Deps: clean
+// Runs the build task.
 gulp.task('default', ['clean'], function () {
    gulp.start('build');
 });

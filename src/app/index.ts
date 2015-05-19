@@ -10,7 +10,7 @@ module gulpAngularTypescriptBoilerplate {
       .controller('MainCtrl', MainCtrl)
       .controller('NavbarCtrl', NavbarCtrl)
 
-      .config(function ($routeProvider:ng.route.IRouteProvider) {
+      .config(['$routeProvider', function ($routeProvider: ng.route.IRouteProvider) {
          $routeProvider
             .when('/', {
                templateUrl: 'app/main/main.html',
@@ -19,5 +19,5 @@ module gulpAngularTypescriptBoilerplate {
             .otherwise({
                redirectTo: '/'
             });
-      });
+      }]);
 }

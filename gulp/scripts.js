@@ -32,6 +32,8 @@ module.exports = function (options) {
          .pipe($.typescript({sortOutput: true})).on('error', options.errorHandler('TypeScript'))
          // Write the generated source map data to the bottom of the generated js files.
          .pipe($.sourcemaps.write())
+         // Catch any missing angular dependency injection annotations.
+         .pipe($.ngAnnotate())
          // Write the names of the generated js files to a temporary file
          .pipe($.toJson({filename: options.tmp + '/sortOutput.json', relative: true}))
          // Write the javascript files to a temporary staging directory

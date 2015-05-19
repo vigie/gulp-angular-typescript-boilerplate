@@ -60,8 +60,6 @@ module.exports = function (options) {
          // Versions the files in stream by appending a content hash to filename.
          .pipe($.rev())
          .pipe(jsFilter)
-         // Catch any missing angular dependency injection annotations before minification.
-         .pipe($.ngAnnotate())
          // Minify js
          .pipe($.uglify({ preserveComments: $.uglifySaveLicense })).on('error', options.errorHandler('Uglify'))
          .pipe(jsFilter.restore())
